@@ -27,7 +27,7 @@ for g in test_xml:
         bounding_boxes.append(bounding_box)
     image_name = root.find('filename').text
     text_name = g[:(len(g) - 4)]+'.txt'
-    f = open(txt_path+text_name, 'w')   #временная папка для текстовых файлов
+    f = open(txt_path+text_name, 'w')
     for item in bounding_boxes:
         f.write("%s\n" % item)
     f.close()
