@@ -1,7 +1,7 @@
 import os
 from xml.etree import ElementTree
 
-xml_path = 'C:/Users/user/PycharmProjects/ssd300_bvh/test/Annotations/'
+xml_path = 'C:/Users/user/PycharmProjects/ssd300_bvh/test/Annotations/'  #путь к xml файлам
 test_xml = []  # массив с именами всех xml в папке
 test_xml = os.listdir(xml_path)
 txt_list = []
@@ -19,13 +19,13 @@ for g in test_xml:
             xmax_o = int(bounding_box.find('xmax').text)
             ymax_o = int(bounding_box.find('ymax').text)
         class_name = object_tree.find('name').text
-        bounding_box = [class_name,'1.0', xmin_o, ymin_o, xmax_o-xmin_o, ymax_o-ymin_o]
-        #bounding_box = [class_name, xmin_o, ymin_o, xmax_o-xmin_o, ymax_o-ymin_o]
+        bounding_box = [class_name,'1.0', xmin_o, ymin_o, xmax_o-xmin_o, ymax_o-ymin_o] #если сохраняем файлы детектированных объектов
+        #bounding_box = [class_name, xmin_o, ymin_o, xmax_o-xmin_o, ymax_o-ymin_o]      #если сохраняем файлы эталонных объектов
         image_name2 = root.find('filename').text
         bounding_boxes.append(bounding_box)
     image_name = root.find('filename').text
     text_name = g[:(len(g) - 4)]+'.txt'
-    f = open('C:/Users/user/PycharmProjects/ssd300_bvh/txt_rez1/'+text_name, 'w')
+    f = open('C:/Users/user/PycharmProjects/ssd300_bvh/txt_rez1/'+text_name, 'w')   #временная папка для текстовых файлов
     for item in bounding_boxes:
         f.write("%s\n" % item)
     f.close()
@@ -36,5 +36,6 @@ for g in test_xml:
     text = text.replace("]", "")
     text = text.replace("'", "")
     text = text.replace(",", "")
-    with open('C:/Users/user/PycharmProjects/ssd300_bvh/txt_rez/'+text_name, "w") as file_out:
+    #сохраняем текстовые файлы для использования в скрипте pascalvoc.py
+    with open('C:/Users/user/PycharmProjects/ssd300_bvh/txt_rez/'+text_name, "w") as file_out:  
         file_out.write(text)
